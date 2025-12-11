@@ -37,7 +37,7 @@ const Team = () => {
                 {
                     teamMembers.map((member, i) => (
                         <div
-                            className="overflow-y-hidden flex-none w-full xs:w-[47%] lg:w-[23%] relative duration-300 group p-2 hover:p-0 h-fit">
+                            className="overflow-y-hidden flex-none w-full xs:w-[47%] lg:w-[23%] relative duration-300 group p-2 hover:p-0 h-fit" key={i}>
                             <Image src={member.img} alt="member" className="rounded-md w-full" />
 
                             <div

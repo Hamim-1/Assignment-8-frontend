@@ -23,7 +23,7 @@ const Partner = () => {
 
                 {
                     partners.map((partner, i) => (
-                        <div className="flex-none w-1/2 sm:w-1/3 lg:w-[15%]">
+                        <div className="flex-none w-1/2 sm:w-1/3 lg:w-[15%]" key={i}>
                             <Image src={partner} alt="" />
                         </div>
                     ))
