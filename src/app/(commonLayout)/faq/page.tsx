@@ -1,4 +1,4 @@
-import FAQ from "./FAQ";
+import FAQ from "../../../components/modules/FAQ/FAQ";
 
 
 const FAQPage = () => {
