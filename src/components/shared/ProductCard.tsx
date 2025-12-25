@@ -1,11 +1,11 @@
 import { Heart, Search, Star } from 'lucide-react';
-import React from 'react';
+import Image from 'next/image';
 
 const ProductCard = ({ product }) => {
     return (
         <div className="flex flex-col border border-gray-300 pb-5 rounded-md group h-80 space-y-5">
             <div className="w-full h-3/5 p-5 relative bg-[#e5e5e58c]">
-                <img src="${productDetails.img}" className=" w-auto mx-auto h-[120px]" />
+                {/* <Image src={product.img} alt="productImage" className=" w-auto mx-auto h-[120px]" fill /> */}
 
                 <div className="absolute top-0 left-0 p-5 w-full h-full flex space-x-5 bg-black/30 justify-center items-center opacity-0 group-hover:opacity-100 transition duration-500">
                     <Search size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />

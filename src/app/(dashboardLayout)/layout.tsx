@@ -5,10 +5,7 @@ import Searchbar from "@/components/shared/Searchbar";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
-            <Navbar />
-            <Searchbar />
             {children}
-            <Footer />
         </>
     );
 };
