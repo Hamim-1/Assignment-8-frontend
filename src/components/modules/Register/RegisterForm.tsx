@@ -1,100 +1,113 @@
-import { Home, MoveRight } from "lucide-react";
+"use client"
+import { registerUser } from "@/services/auth/register";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
+    const [state, formAction, isPending] = useActionState(registerUser, null);
+    const router = useRouter();
+    const getFieldError = (fieldName: string) => {
+
+        if (state && state.errors) {
+            const error = state.errors.find((err: any) => err.field === fieldName);
+            return error?.message;
+
+        } else {
+            return null;
+        }
+    }
+    useEffect(() => {
+        if (state?.success) {
+            router.push("/login")
+            toast.success(state?.message);
+        }
+        if (state?.message && !state.success) {
+            toast.error(state.message);
+        }
+    }, [state]);
     return (
-        <div className="custom-container min-h-screen flex items-center justify-center bg-gray-50 py-20">
+        <form className="flex flex-col space-y-6" action={formAction}>
+            <div className="flex flex-col space-y-2">
+                <label className="font-medium text-gray-700">Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
 
-            <div className="w-full max-w-md bg-white/90 backdrop-blur-md shadow-xl shadow-black/20 rounded-2xl p-10 space-y-6 border border-gray-100">
-
-                <div className="flex text-primary items-center space-x-2 mb-b">
-                    <Link href="/">
-                        <Home className="cursor-pointer text-primary" />
-                    </Link>
-                    <MoveRight size={20} />
-                    <p className="text-black/80">Register</p>
-                </div>
-
-                <div>
-                    <h2 className="text-3xl font-bold text-center text-primary tracking-wide">
-                        Create an Account
-                    </h2>
-                    <p className="text-center text-gray-500 text-sm py-1.5">
-                        Fill your details to register
-                    </p>
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                    <label className="font-medium text-gray-700">Full Name</label>
-                    <input
-                        type="text"
-                        id="fullName"
-                        className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
-
-                    />
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                    <label className="font-medium text-gray-700">Email</label>
-                    <input
-                        type="email"
-                        id="email2"
-                        className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
-
-                    />
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                    <label className="font-medium text-gray-700">Password</label>
-                    <input
-                        type="password"
-                        id="password2"
-                        className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
-
-                    />
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                    <label className="font-medium text-gray-700">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="confirmPass"
-                        className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
-
-                    />
-                </div>
-
-                <div className="flex items-center space-x-2">
-                    <input
-                        id="agree"
-                        type="checkbox"
-                        className="cursor-pointer focus:ring-0 text-primary border-primary"
-                    />
-                    <label htmlFor="agree" className="text-gray-700 text-sm">
-                        I agree to the{" "}
-                    </label>
-                    <Link href="terms-and-conditions"
-                        className="text-primary hover:underline cursor-pointer"
-                    >
-                        terms & conditions
-                    </Link>
-                </div>
-
-                <button className="w-full bg-primary hover:bg-primary/90 text-white rounded-lg py-3 font-semibold text-lg transition-all">
-                    Create Account
-                </button>
-
-                <p className="text-center text-sm text-gray-700">
-                    Already have an account?{" "}
-                    <Link href="/login"
-                        className="text-primary hover:underline cursor-pointer"
-                    >
-                        Login Now
-                    </Link>
-                </p>
-
+                />
+                {
+                    getFieldError("name") && <p className="text-red-500 text-sm">{getFieldError("name")}</p>
+                }
             </div>
-        </div>
+
+            <div className="flex flex-col space-y-2">
+                <label className="font-medium text-gray-700">Email</label>
+                <input
+                    type="text"
+                    name="email"
+                    className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
+
+                />
+                {
+                    getFieldError("email") && <p className="text-red-500 text-sm">{getFieldError("email")}</p>
+                }
+            </div>
+
+            <div className="flex flex-col space-y-2">
+                <label className="font-medium text-gray-700">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
+
+                />
+                {
+                    getFieldError("password") && <p className="text-red-500 text-sm">{getFieldError("password")}</p>
+                }
+            </div>
+
+            <div className="flex flex-col space-y-2">
+                <label className="font-medium text-gray-700">Confirm Password</label>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    className="border border-gray-300 focus:border-primary focus:ring-primary focus:ring-1 rounded-lg px-4 py-2 outline-none bg-white transition-all"
+
+                />
+                {
+                    getFieldError("confirmPassword") && <p className="text-red-500 text-sm">{getFieldError("confirmPassword")}</p>
+                }
+            </div>
+
+            <div className="flex items-center space-x-2">
+                <input
+                    name="agree"
+                    type="checkbox"
+                    className="cursor-pointer focus:ring-0 text-primary border-primary"
+                />
+                <label htmlFor="agree" className="text-gray-700 text-sm">
+                    I agree to the{" "}
+                </label>
+                <Link href="terms-and-conditions"
+                    className="text-primary hover:underline cursor-pointer"
+                >
+                    terms & conditions
+                </Link>
+            </div>
+
+            {
+                isPending ?
+                    <button className="w-full bg-primary/50 text-white rounded-lg py-3 font-semibold text-lg transition-all cursor-pointer">
+                        Creating account…
+                    </button>
+                    :
+                    <button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white rounded-lg py-3 font-semibold text-lg transition-all cursor-pointer">
+                        Create Account
+                    </button>
+            }
+        </form>
 
     );
 };
