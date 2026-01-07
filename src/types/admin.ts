@@ -1,13 +1,14 @@
 // types/admin.ts
 
-export interface Product {
-    id: number;
+export interface IProduct {
+    _id: string;
     title: string;
     price: number;
     description: string;
     category: string;
     image: File | string;
     quantity: number;
+    discount: number;
 }
 
 export interface Order {
@@ -20,10 +21,10 @@ export interface Order {
 }
 
 export interface User {
-    id: number;
+    _id: string;
     name: string;
     email: string;
-    status: 'Active' | 'Blocked';
+    status: 'ACTIVE' | 'BLOCKED';
     joined: string;
 }
 

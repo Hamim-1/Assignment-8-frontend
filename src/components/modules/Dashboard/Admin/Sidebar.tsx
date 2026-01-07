@@ -10,12 +10,12 @@ import Image from 'next/image';
 
 interface SidebarProps {
     activeTab: string;
-    setActiveTab: (tab: string) => void;
+    handleTabChange: (tab: string) => void;
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab, handleTabChange, isOpen, setIsOpen }) => {
     const menuItems: MenuItem[] = [
         { id: 'products', label: 'Products', icon: Package },
         { id: 'orders', label: 'Orders', icon: ShoppingCart },
@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpen, setI
                             <button
                                 key={item.id}
                                 onClick={() => {
-                                    setActiveTab(item.id);
+                                    handleTabChange(item.id);
                                     setIsOpen(false); // close sidebar on mobile after click
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${activeTab === item.id

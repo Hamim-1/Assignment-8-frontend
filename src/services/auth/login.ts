@@ -1,6 +1,7 @@
 "use server"
 import { cookies } from "next/headers";
 import z from "zod"
+import { setCookie } from "./tokenHandlers";
 
 const loginValidationZodSchema = z.object({
     email: z
@@ -45,26 +46,25 @@ export const loginUser = async (_currentState: any, formData: any): Promise<any>
             body: JSON.stringify(loginData),
             headers: {
                 "Content-Type": "application/json"
-            },
-            credentials: "include"
+            }
         });
         const result = await res.json();
 
         if (result.success) {
-            const cookieStore = await cookies();
-            cookieStore.set({
-                name: "accessToken",
-                value: result.accessToken,
+            await setCookie("accessToken", result.data.accessToken, {
+                secure: true,
                 httpOnly: true,
-                sameSite: "strict",
+                maxAge: 1000 * 60 * 60,
                 path: "/",
+                sameSite: "none",
             });
-            cookieStore.set({
-                name: "refreshToken",
-                value: result.refreshToken,
+
+            await setCookie("refreshToken", result.data.refreshToken, {
+                secure: true,
                 httpOnly: true,
-                sameSite: "strict",
+                maxAge: 1000 * 60 * 60 * 24 * 90,
                 path: "/",
+                sameSite: "none",
             });
         }
 

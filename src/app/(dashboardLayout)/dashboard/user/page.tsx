@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
     const searchParams = useSearchParams();
-    const tab = searchParams.get("tab") || "account";
+    const tab = searchParams.get("tab") || "manage-account";
     const [showMobileNav, setShowMobileNav] = useState(false);
     const formatBreadcrumb = tab
         .split("-")
