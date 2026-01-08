@@ -1,4 +1,4 @@
-// types/admin.ts
+export type Role = "ADMIN" | "USER";
 
 export interface IProduct {
     _id: string;
@@ -25,6 +25,7 @@ export interface User {
     name: string;
     email: string;
     status: 'ACTIVE' | 'BLOCKED';
+    role: Role;
     joined: string;
 }
 

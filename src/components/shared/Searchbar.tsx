@@ -1,61 +1,63 @@
 import { Footprints, Headphones, Heart, Laptop, Menu, Phone, ShoppingCart, Smartphone, UserRound, Watch } from "lucide-react";
+import SearchForm from "../modules/Shop/SearchForm";
+import { SearchByCategory } from "../modules/Shop/SearchByCategory";
 const Searchbar = () => {
     const categories = [
         {
-            label: "shoes",
+            label: "shoe",
             icon: <Footprints />
         },
         {
-            label: "headpones",
+            label: "headphone",
             icon: <Headphones />
         },
         {
-            label: "watches",
+            label: "watch",
             icon: <Watch />
         },
         {
-            label: "laptops",
+            label: "laptop",
             icon: <Laptop />
         },
         {
-            label: "mobile",
+            label: "phone",
             icon: <Smartphone />
         }]
     return (
         <div className="bg-primary w-full hidden lg:block z-10 py-3">
 
             <div className="flex justify-between items-center custom-container">
-                <div className="h-full w-1/6 xl:w-1/6 flex items-center bg-transparent relative group">
+                <div className="h-full w-1/6 xl:w-1/6 flex items-center bg-transparent">
 
                     <div
-                        className="flex bg-secondary text-white px-3 xl:px-6 py-3 items-center text-base space-x-3 rounded-md w-full cursor-pointer">
+                        className="flex bg-secondary text-white px-2 xl:px-6 py-3 items-center text-base space-x-2 rounded-md w-full cursor-pointer relative group">
                         <Menu />
                         <p>All categories</p>
-                    </div>
 
-                    <div className="w-full absolute top-[65px] shadow-md bg-white rounded z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 
-                        <div className="w-full">
-                            {
-                                categories.map((categorie, i) => (
-                                    <div className="cursor-pointer flex space-x-5 border-b border-primary py-3 px-3 hover:bg-primary/30 transition duration-300 text-primary" key={i}>
-                                        {categorie.icon}
-                                        <span className="capitalize">{categorie.label}</span>
-                                    </div>
-                                ))
-                            }
+                        <div className="w-full absolute top-12 left-0 shadow-md bg-white rounded z-30 hidden group-hover:block">
+
+                            <div className="w-full">
+                                {
+                                    categories.map((category, i) => (
+                                        <SearchByCategory key={i} category={category.label}>
+                                            <div className="cursor-pointer flex space-x-5 border-b border-primary py-3 px-3 hover:bg-primary/30 transition duration-300 text-primary">
+                                                {category.icon}
+                                                <span className="capitalize">{category.label}</span>
+                                            </div>
+                                        </SearchByCategory>
+                                    ))
+                                }
+                            </div>
                         </div>
+
                     </div>
+
 
                 </div>
 
                 <div className="flex w-fit mx-auto">
-                    <form className="flex search-input-form">
-                        <input id="search-input-one" type="search" placeholder="Search product..."
-                            className="bg-white px-6 py-3 text-base border-none outline-none focus:ring-0 placeholder:text-black/50 rounded-l-md" />
-                        <button type="submit"
-                            className="bg-secondary text-white px-6 h-full text-base rounded-r-md font-semibold">Search</button>
-                    </form>
+                    <SearchForm />
                 </div>
 
                 <div className="flex text-white space-x-4 h-full items-center">

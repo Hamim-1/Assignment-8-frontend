@@ -5,6 +5,7 @@ import NewArraivalProduct from "@/components/modules/Home/NewArraivalProduct";
 import RecommendProduct from "@/components/modules/Home/RecommendProduct";
 import TopRanking from "@/components/modules/Home/TopRankingProduct";
 import Offer from "@/components/modules/Offer";
+import BottomNavBar from "@/components/shared/BottomNavBar";
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Offer />
       <RecommendProduct />
       <MobileApp />
+      <BottomNavBar />
     </>
   );
 }

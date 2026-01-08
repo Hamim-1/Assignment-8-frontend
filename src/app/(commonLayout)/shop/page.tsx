@@ -21,17 +21,26 @@ const page = () => {
     const [error, setError] = useState(false);
     const [products, setProducts] = useState<IProduct[] | null>(null);
     const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+    const category = searchParams.get("category") || null;
     const search = searchParams.get("search") || "";
     const [meta, setMeta] = useState<IMeta | null>(null);
     const sortOptions = [
         { label: "Default Sorting", value: "" },
         { label: "Price Low-High", value: "price" },
         { label: "Price High-Low", value: "-price" },
-    ]
+    ];
+
+
     useEffect(() => {
         const fetchProduct = async () => {
             setProducts(null);
-            const result = await getProducts({ page, search, sort });
+            let result;
+            if (category) {
+                result = await getProducts({ page, search, sort, category });
+            } else {
+                result = await getProducts({ page, search, sort });
+            }
+
             if (!result?.error && result?.data) {
                 setProducts(result.data);
                 setMeta(result.meta);
@@ -40,7 +49,7 @@ const page = () => {
             }
         }
         fetchProduct();
-    }, [page, sort]);
+    }, [page, sort, search, category]);
 
 
     const handlePageChange = (forward: string) => {
