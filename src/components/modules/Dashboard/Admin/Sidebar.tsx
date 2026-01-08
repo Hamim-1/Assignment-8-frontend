@@ -1,12 +1,7 @@
-// components/admin/Sidebar.tsx
-
 'use client';
-
 import React from 'react';
-import { ChevronRight, Home, Package, ShoppingCart, Users } from 'lucide-react';
-import { MenuItem } from '@/types/admin';
+import { LogOut, Package, ShoppingCart, Users } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface SidebarProps {
     activeTab: string;
@@ -16,15 +11,16 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, handleTabChange, isOpen, setIsOpen }) => {
-    const menuItems: MenuItem[] = [
-        { id: 'products', label: 'Products', icon: Package },
-        { id: 'orders', label: 'Orders', icon: ShoppingCart },
-        { id: 'users', label: 'Users', icon: Users },
+    const menuItems = [
+        { id: 'products', label: 'Products', icon: <Package /> },
+        { id: 'orders', label: 'Orders', icon: <ShoppingCart /> },
+        { id: 'users', label: 'Users', icon: <Users /> },
+        { id: 'logout', label: 'Logout', icon: <LogOut /> },
     ];
 
     return (
         <>
-            {/* Overlay - only mobile */}
+
             {isOpen && (
                 <div
                     className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -47,25 +43,20 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, handleTabChange, isOpen, s
                 </Link>
 
                 <nav>
-                    {[
-                        { id: "products", label: "Products", icon: require("lucide-react").Package },
-                        { id: "orders", label: "Orders", icon: require("lucide-react").ShoppingCart },
-                        { id: "users", label: "Users", icon: require("lucide-react").Users },
-                    ].map((item) => {
-                        const Icon = item.icon;
+                    {menuItems.map((item) => {
                         return (
                             <button
                                 key={item.id}
                                 onClick={() => {
                                     handleTabChange(item.id);
-                                    setIsOpen(false); // close sidebar on mobile after click
+                                    setIsOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${activeTab === item.id
                                     ? "bg-white text-primary"
                                     : "hover:bg-white/10"
                                     }`}
                             >
-                                <Icon size={20} />
+                                {item.icon}
                                 <span>{item.label}</span>
                             </button>
                         );

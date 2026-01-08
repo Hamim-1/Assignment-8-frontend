@@ -7,6 +7,7 @@ import { ChevronRight, Home, PanelRightClose } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useEffect, useState } from 'react';
+import Logout from '../User/Logout';
 
 
 export default function Dashboard() {
@@ -42,6 +43,7 @@ export default function Dashboard() {
                 {activeTab === 'products' && <ProductsTab />}
                 {activeTab === 'orders' && <OrdersTab />}
                 {activeTab === 'users' && <UsersTab />}
+                {activeTab === 'logout' && <Logout role='ADMIN' />}
             </div>
         </div>
     )
