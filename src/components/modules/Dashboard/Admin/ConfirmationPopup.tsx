@@ -14,7 +14,8 @@ const ConfirmationPopup = ({
     const handleConfirm = async () => {
         if (!productId) return;
         const token = await getCookie("accessToken");
-        if (token) {
+
+        if (!token) {
             toast.error("No Token Receive");
             return;
         }

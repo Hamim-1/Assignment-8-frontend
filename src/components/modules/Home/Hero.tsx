@@ -1,5 +1,6 @@
 import iphone12 from "@/assets/images/iphone-12.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
     return (
@@ -13,8 +14,12 @@ const Hero = () => {
                     <p className="my-5"><span className="text-primary font-semibold">$450.00</span> <del
                         className="font-medium text-black/60">$500.00</del></p>
                     <button
-                        className="bg-primary px-4 py-2 border border-primary hover:bg-transparent text-white hover:text-primary rounded-md duration-300 font-semibold">Shop
-                        Now</button>
+                        className="bg-primary px-4 py-2 border border-primary hover:bg-transparent text-white hover:text-primary rounded-md duration-300 font-semibold cursor-pointer">
+                        <Link href="/shop">
+                            Shop
+                            Now
+                        </Link>
+                    </button>
                 </div>
 
                 <div className="w-2/5 hidden sm:block relative">

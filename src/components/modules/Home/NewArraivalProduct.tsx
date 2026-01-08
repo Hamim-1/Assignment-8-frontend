@@ -1,49 +1,36 @@
+import LoadingOverlay from '@/components/shared/Loading';
 import ProductCard from '@/components/shared/ProductCard';
+import { getProducts } from '@/lib/products';
+import { IProduct } from '@/types/admin';
 
-const NewArraivalProduct = () => {
-    const products = [
-        {
-            name: 'HP Pavilion 15',
-            price: '$1200.00',
-            Dprice: '770.00',
-            review: 70,
-            img: 'img/laptop/laptop-3.png'
-        },
-        {
-            name: 'SAMSUNG 27 Curved',
-            price: '$550.00',
-            Dprice: '470.00',
-            review: 50,
-            img: 'img/monitor/hd-monitor.png'
-        },
-        {
-            name: 'Beats Headphones',
-            price: '$120.00',
-            Dprice: '70.00',
-            review: 90,
-            img: 'img/headphone/headphone-3.png'
-        },
-        {
-            name: 'Beats Headphones',
-            price: '$120.00',
-            Dprice: '70.00',
-            review: 90,
-            img: 'img/headphone/headphone-3.png'
-        }
-    ]
+const NewArraivalProduct = async () => {
+    const result = await getProducts({ limit: 4 });
+    let products;
+    if (!result?.error && result?.data) {
+        products = result.data;
+    } else if (result?.error) {
+        return <div className='custom-container py-10'>
+            <p className='text-red-500'>Something Went wrong</p>
+        </div>
+    }
     return (
         <section>
             <div className="custom-container my-16">
                 <p className="text-2xl md:text-3xl font-semibold my-10">New Arrivals</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="new-arrival-section">
+                {
+                    products ?
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
-                    {
-                        products.map((product, i) => (
-                            <ProductCard product={product} key={i} />
-                        ))
-                    }
+                            {
+                                products.map((product: IProduct, i: number) => (
+                                    <ProductCard product={product} key={i} />
+                                ))
+                            }
 
-                </div>
+                        </div>
+                        :
+                        <LoadingOverlay />
+                }
             </div>
         </section>
     );
