@@ -1,6 +1,7 @@
 import { IProduct } from '@/types/admin';
 import { Heart, Search, Star } from 'lucide-react';
 import Image from 'next/image';
+import { ProductDetailsAction } from './ProductDetailsActions';
 
 const ProductCard = ({ product }: { product: IProduct }) => {
     const discount = product.discount > 0;
@@ -19,13 +20,17 @@ const ProductCard = ({ product }: { product: IProduct }) => {
 
 
                 <div className="absolute top-0 left-0 p-5 w-full h-full flex space-x-5 bg-black/30 justify-center items-center opacity-0 group-hover:opacity-100 transition duration-500">
-                    <Search size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />
+                    <ProductDetailsAction id={product._id}>
+                        <Search size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />
+                    </ProductDetailsAction>
                     <Heart size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />
                 </div>
             </div>
 
             <div className="relative h-2/5 w-full flex flex-col px-5 overflow-hidden name-and-price">
-                <p className="text-lg font-medium hover:text-primary hover:underline w-fit lg:text-base cursor-pointer">{product.title}</p>
+                <ProductDetailsAction id={product._id}>
+                    <p className="text-lg font-medium hover:text-primary hover:underline w-fit lg:text-base cursor-pointer">{product.title}</p>
+                </ProductDetailsAction>
                 <div className="flex items-center space-x-3 group-hover:hidden py-1">
                     <span className="text-primary font-semibold text-md"><span>${discount ? discountPrice.toFixed(2) : product.price}</span></span>
                     {discount && <del className="text-sm text-gray-500">$ {product.price}</del>}
