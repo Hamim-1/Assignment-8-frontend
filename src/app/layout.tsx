@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "@/context/AuthContext";
-import { CartProvider } from "@/context/CartContext";
+// app/layout.tsx
+import { Suspense } from 'react';
+import type { Metadata } from 'next';
+import './globals.css';
+import LoadingOverlay from '@/components/shared/Loading';
+import { AuthProvider } from '@/context/AuthContext';
+import { Toaster } from 'react-hot-toast';
+import { CartProvider } from '@/context/CartContext';
+import { Geist, Geist_Mono } from 'next/font/google';
 
+export const metadata: Metadata = {
+  title: 'Your App Name',
+  description: 'Your app description',
+};
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -15,19 +22,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Rafcart",
-  description: "Rafcart Ecommerce",
-};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning
+      <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster
@@ -36,7 +40,13 @@ export default function RootLayout({
         />
         <AuthProvider>
           <CartProvider>
-            {children}
+            <Suspense fallback={
+              <div className="h-screen flex justify-center items-center">
+                <LoadingOverlay />
+              </div>
+            }>
+              {children}
+            </Suspense>
           </CartProvider>
         </AuthProvider>
       </body>
