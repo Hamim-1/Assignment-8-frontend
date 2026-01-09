@@ -1,7 +1,10 @@
-import { Footprints, Headphones, Heart, Laptop, Menu, Phone, ShoppingCart, Smartphone, UserRound, Watch } from "lucide-react";
+import { Footprints, Headphones, Laptop, Menu, Smartphone, Watch } from "lucide-react";
 import SearchForm from "../modules/Shop/SearchForm";
 import { SearchByCategory } from "../modules/Shop/SearchByCategory";
+import CartWishlistButton from "./CartWishlistButton";
 const Searchbar = () => {
+
+
     const categories = [
         {
             label: "shoe",
@@ -61,32 +64,8 @@ const Searchbar = () => {
                 </div>
 
                 <div className="flex text-white space-x-4 h-full items-center">
+                    <CartWishlistButton />
 
-                    <div className="flex flex-col items-center cursor-pointer h-full w-fit justify-center relative group px-1">
-                        <div>
-                            <Heart className="relative text-2xl" />
-                            <div className="flex justify-center items-center absolute -top-2 right-0 bg-secondary rounded-full text-sm size-6">
-                                6
-                            </div>
-                        </div>
-                        <p className="text-xs">Wish List</p>
-                    </div>
-
-                    <div className="flex flex-col items-center cursor-pointer h-full w-fit justify-center relative group px-1">
-                        <div>
-                            <ShoppingCart className="relative text-2xl" />
-                            <div className="flex justify-center items-center absolute -top-2 -right-3 bg-secondary rounded-full text-sm size-6">
-                                6
-                            </div>
-                        </div>
-                        <p className="text-xs">Cart</p>
-                    </div>
-
-                    <div className="flex flex-col items-center cursor-pointer h-full justify-center relative group">
-                        <UserRound />
-                        <p className="text-xs">Account</p>
-
-                    </div>
                 </div>
             </div>
 

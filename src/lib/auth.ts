@@ -26,3 +26,32 @@ export async function requireAuth(requiredRole?: Role) {
 
     return user;
 }
+
+
+export async function validateToken() {
+    try {
+        const token = await getCookie("accessToken");
+
+        if (!token) {
+            return null;
+        }
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/me`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            cache: "no-store",
+        });
+
+        if (!res.ok) {
+            return null;
+        }
+
+        const result = await res.json();
+        return result.data;
+    } catch (error) {
+        console.error("Token validation failed:", error);
+        return null;
+    }
+}

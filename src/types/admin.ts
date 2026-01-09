@@ -1,5 +1,6 @@
 export type Role = "ADMIN" | "USER";
 
+
 export interface IProduct {
     _id: string;
     title: string;
@@ -27,6 +28,7 @@ export interface User {
     status: 'ACTIVE' | 'BLOCKED';
     role: Role;
     joined: string;
+    wishlist: string[]
 }
 
 export type OrderStatus = 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';

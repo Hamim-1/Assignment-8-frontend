@@ -1,11 +1,12 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { loginUser } from "@/services/auth/login";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
 const LoginForm = () => {
-
+    const { setUser } = useAuth();
     const [state, formAction, isPending] = useActionState(loginUser, null);
     const router = useRouter();
     const searchParams = useSearchParams()
@@ -24,6 +25,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (state?.success) {
+            setUser(state.data.user)
             router.push(redirectTo.toLocaleLowerCase())
             toast.success(state?.message);
         }

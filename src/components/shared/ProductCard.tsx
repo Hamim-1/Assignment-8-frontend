@@ -2,6 +2,8 @@ import { IProduct } from '@/types/admin';
 import { Heart, Search, Star } from 'lucide-react';
 import Image from 'next/image';
 import { ProductDetailsAction } from './ProductDetailsActions';
+import AddToCartWrapper from '../modules/Product/AddToCartWrapper';
+import AddToWishlistWrapper from '../modules/Product/AddToWishlistWrapper';
 
 const ProductCard = ({ product }: { product: IProduct }) => {
     const discount = product.discount > 0;
@@ -23,7 +25,10 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                     <ProductDetailsAction id={product._id}>
                         <Search size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />
                     </ProductDetailsAction>
-                    <Heart size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />
+
+                    <AddToWishlistWrapper productId={product._id}>
+                        <Heart size={35} className="bg-primary p-2 rounded-full hover:bg-secondary text-white transition cursor-pointer" />
+                    </AddToWishlistWrapper>
                 </div>
             </div>
 
@@ -45,9 +50,11 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                     <p className="pl-3 text-black">({product.discount})</p>
                 </div>
                 <div>
-                    <button
-                        className="bg-primary text-white hover:bg-transparent hover:text-primary duration-300 rounded-md px-5 py-2 font-semibold absolute -bottom-20 left-3 opacity-0 group-hover:opacity-100 group-hover:bottom-5 border border-primary">Add
-                        To Cart</button>
+                    <AddToCartWrapper productId={product._id}>
+                        <button
+                            className="bg-primary text-white hover:bg-transparent hover:text-primary duration-300 rounded-md px-5 py-2 font-semibold absolute -bottom-20 left-3 opacity-0 group-hover:opacity-100 group-hover:bottom-5 border border-primary cursor-pointer">Add
+                            To Cart</button>
+                    </AddToCartWrapper>
                 </div>
             </div>
         </div>

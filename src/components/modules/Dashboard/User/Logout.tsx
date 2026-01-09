@@ -1,13 +1,14 @@
 "use client";
+import { useAuth } from "@/context/AuthContext";
 import { deleteCookie } from "@/services/auth/tokenHandlers";
 import { useRouter } from "next/navigation";
 
 
 const Logout = ({ role }: { role: string }) => {
     const router = useRouter();
+    const { logout } = useAuth();
     const handleLogout = async () => {
-        await deleteCookie("accessToken");
-        await deleteCookie("refreshToken");
+        logout();
     }
     const handleCancle = () => {
         if (role === "USER") {
