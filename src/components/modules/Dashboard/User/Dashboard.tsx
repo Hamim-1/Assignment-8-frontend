@@ -9,12 +9,14 @@ import ManageAddress from "@/components/modules/Dashboard/User/ManageAddress";
 import OrderHistory from "@/components/modules/Dashboard/User/OrderHistory";
 import PorfileInfo from "@/components/modules/Dashboard/User/PorfileInfo";
 import Wishlist from "@/components/modules/Dashboard/User/Wishlist";
+import { useAuth } from "@/context/AuthContext";
 import { ChevronRight, Home, Menu, ShieldUser } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
 export default function Dashboard() {
+    const { user } = useAuth();
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "manage-account";
     const [showMobileNav, setShowMobileNav] = useState(false);
@@ -87,7 +89,7 @@ export default function Dashboard() {
                             </div>
                             <div className="flex flex-col">
                                 <p>Hello,</p>
-                                <p className="text-base sm:text-lg font-semibold">Rahim Ahmed</p>
+                                <p className="text-base sm:text-lg font-semibold">{user?.name}</p>
                             </div>
                         </div>
 

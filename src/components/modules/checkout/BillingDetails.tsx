@@ -1,5 +1,3 @@
-import React from 'react';
-
 const BillingDetails = () => {
     return (
         <div className="w-full lg:w-3/5 xl:w-2/3 flex flex-col space-y-3 mx-auto rounded-lg">

@@ -1,6 +1,23 @@
-import React from 'react';
+"use client"
+import { useEffect, useState } from "react";
+import { ICartItem } from "./Cart";
+import { useRouter } from "next/navigation";
 
-const ProcessToChecout = () => {
+const ProcessToCheckout = ({ cartItems }: { cartItems: ICartItem[] }) => {
+    const [totalPrice, setTotalPrice] = useState(0);
+    const router = useRouter();
+    useEffect(() => {
+        const total = cartItems.reduce((acc, item) => {
+            const discountPrice = item.product.price - (item.product.price * item.product.discount / 100);
+            return acc + (item.quantity * discountPrice);
+        }, 0);
+
+        setTotalPrice(total);
+    }, [cartItems]);
+    const handleProcessToCheckout = () => {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        router.push("/checkout");
+    }
     return (
         <div
             className="h-fit w-[97%] xs:w-80 md:w-full lg:w-[28%] mx-auto flex flex-col space-y-3 border border-gray-300 p-5 xs:p-10 lg:p-6 rounded-md">
@@ -8,7 +25,7 @@ const ProcessToChecout = () => {
 
             <div className="flex justify-between font-medium">
                 <p>Subtotal</p>
-                <p>$1880.00</p>
+                <p>${totalPrice.toFixed(2)}</p>
             </div>
 
             <div className="flex justify-between font-medium text-gray-600">
@@ -23,7 +40,7 @@ const ProcessToChecout = () => {
 
             <div className="flex justify-between font-semibold text-lg">
                 <p>Total</p>
-                <p>$1880.00</p>
+                <p>${totalPrice.toFixed(2)}</p>
             </div>
 
             <div className="flex pb-3">
@@ -33,12 +50,12 @@ const ProcessToChecout = () => {
                     className="bg-primary px-2 py-1 hover:bg-transparent hover:text-primary border border-primary rounded-sm w-fit xs:w-1/4 lg:w-1/3 rounded-l-none text-white duration-200 font-semibold">APPLY</button>
             </div>
 
-            <button
-                className="bg-primary p-2 hover:bg-transparent hover:text-primary border border-primary rounded-sm mx-auto w-full text-white duration-200 font-semibold text-sm">
+            <button onClick={handleProcessToCheckout}
+                className="bg-primary p-2 hover:bg-transparent hover:text-primary border border-primary rounded-sm mx-auto w-full text-white duration-200 font-semibold text-sm cursor-pointer">
                 PROCCEES TO CHECKOUT
             </button>
         </div>
     );
 };
 
-export default ProcessToChecout;
+export default ProcessToCheckout;

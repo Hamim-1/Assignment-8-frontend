@@ -1,6 +1,8 @@
-import React from 'react';
+import { useAuth } from "@/context/AuthContext";
+
 
 const ManageAccount = () => {
+    const { user } = useAuth();
     return (
         <div className="w-full flex flex-col mx-auto">
 
@@ -11,30 +13,12 @@ const ManageAccount = () => {
                         <p className="text-lg font-semibold">Personal Profile</p>
                         <p className="text-primary cursor-pointer font-semibold hover:underline">Edit</p>
                     </div>
-                    <p className="font-semibold">Rahim Ahmed</p>
-                    <p>example@mail.com</p>
+                    <p className="font-semibold">{user?.name}</p>
+                    <p>{user?.email}</p>
                     <p>(123) 456-789</p>
                 </div>
 
-                <div className="w-full lg:w-1/3 flex flex-col space-y-2 p-5 pb-10 shadow-md">
-                    <div className="flex justify-between pb-5">
-                        <p className="text-lg font-semibold">Personal Profile</p>
-                        <p className="text-primary cursor-pointer font-semibold hover:underline">Edit</p>
-                    </div>
-                    <p className="font-semibold">Rahim Ahmed</p>
-                    <p>example@mail.com</p>
-                    <p>(123) 456-789</p>
-                </div>
 
-                <div className="w-full lg:w-1/3 flex flex-col space-y-2 p-5 pb-10 shadow-md">
-                    <div className="flex justify-between pb-5">
-                        <p className="text-lg font-semibold">Personal Profile</p>
-                        <p className="text-primary cursor-pointer font-semibold hover:underline">Edit</p>
-                    </div>
-                    <p className="font-semibold">Rahim Ahmed</p>
-                    <p>example@mail.com</p>
-                    <p>(123) 456-789</p>
-                </div>
 
             </div>
 

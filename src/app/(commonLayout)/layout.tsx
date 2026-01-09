@@ -5,12 +5,14 @@ import Searchbar from "@/components/shared/Searchbar";
 
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <>
+        <div className="flex flex-col min-h-screen">
             <Navbar />
             <Searchbar />
-            {children}
+            <div className="flex-1">
+                {children}
+            </div>
             <Footer />
-        </>
+        </div>
     );
 };
 
