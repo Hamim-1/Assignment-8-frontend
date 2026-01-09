@@ -98,7 +98,11 @@ const UsersTab = () => {
             {
 
                 loading ?
-                    <LoadingOverlay />
+
+                    <div className='w-full flex justify-center items-center h-[50vh]'>
+                        <LoadingOverlay />
+                    </div>
+
                     :
                     <div className="bg-white rounded-lg shadow overflow-auto">
                         <table className="w-full overflow-x-auto">

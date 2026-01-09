@@ -6,7 +6,6 @@ import { IProduct } from '@/types/admin';
 import Modal from './Modal';
 import ProductForm from './ProductForm';
 import Image from 'next/image';
-import toast from 'react-hot-toast';
 import LoadingOverlay from '@/components/shared/Loading';
 import ConfirmationPopup from './ConfirmationPopup';
 
@@ -65,56 +64,57 @@ const ProductsTab: React.FC = () => {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 relative">
-                {
-                    loading ?
-                        <LoadingOverlay />
-                        :
-                        <>
-                            {products.map((product, i) => (
-                                <div key={i} className="border rounded-lg p-4 hover:shadow-lg transition-shadow bg-white">
-                                    <Image
-                                        src={product.image as string}
-                                        alt={product.title}
-                                        className="w-full h-48 object-cover rounded-lg mb-3"
-                                        width={400}
-                                        height={192}
-                                        placeholder="empty"
-                                    />
 
-                                    <h3 className="font-bold text-lg mb-1">{product.title}</h3>
-                                    <p className="text-gray-600 text-sm mb-2">{product.description}</p>
-                                    <div className="flex justify-between items-center mb-3">
-                                        <span className="text-primary font-bold text-xl">${product.price}</span>
-                                        <span className="text-sm text-gray-500">Stock: {product.quantity}</span>
-                                    </div>
-                                    <span className="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded mb-3">
-                                        {product.category}
-                                    </span>
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={() => { setEditingProduct(product); setIsModalOpen(true); }}
-                                            className="flex-1 flex items-center justify-center gap-1 border border-primary text-primary px-3 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors cursor-pointer"
-                                        >
-                                            <Edit2 size={16} />
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="flex-1 flex items-center justify-center gap-1 border border-red-500 text-red-500 px-3 py-2 rounded-lg hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
-                                            onClick={() => {
-                                                setDeletingProduct(product._id);
-                                                setIsDeleteConfirmationOpen(true);
-                                            }}
-                                        >
-                                            <Trash2 size={16} />
-                                            Delete
-                                        </button>
-                                    </div>
+            {
+                loading ?
+                    <div className='w-full flex justify-center items-center h-[50vh]'>
+                        <LoadingOverlay />
+                    </div>
+                    :
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 relative">
+                        {products.map((product, i) => (
+                            <div key={i} className="border rounded-lg p-4 hover:shadow-lg transition-shadow bg-white">
+                                <Image
+                                    src={product.image as string}
+                                    alt={product.title}
+                                    className="w-full h-48 object-cover rounded-lg mb-3"
+                                    width={400}
+                                    height={192}
+                                    placeholder="empty"
+                                />
+
+                                <h3 className="font-bold text-lg mb-1">{product.title}</h3>
+                                <p className="text-gray-600 text-sm mb-2">{product.description}</p>
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="text-primary font-bold text-xl">${product.price}</span>
+                                    <span className="text-sm text-gray-500">Stock: {product.quantity}</span>
                                 </div>
-                            ))}
-                        </>
-                }
-            </div>
+                                <span className="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded mb-3">
+                                    {product.category}
+                                </span>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => { setEditingProduct(product); setIsModalOpen(true); }}
+                                        className="flex-1 flex items-center justify-center gap-1 border border-primary text-primary px-3 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors cursor-pointer"
+                                    >
+                                        <Edit2 size={16} />
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="flex-1 flex items-center justify-center gap-1 border border-red-500 text-red-500 px-3 py-2 rounded-lg hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
+                                        onClick={() => {
+                                            setDeletingProduct(product._id);
+                                            setIsDeleteConfirmationOpen(true);
+                                        }}
+                                    >
+                                        <Trash2 size={16} />
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+            }
 
             <Modal
                 isOpen={isModalOpen}

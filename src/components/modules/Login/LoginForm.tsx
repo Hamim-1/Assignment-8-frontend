@@ -24,8 +24,8 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (state?.success) {
-            toast.success(state?.message);
             router.push(redirectTo.toLocaleLowerCase())
+            toast.success(state?.message);
         }
 
         if (state?.message && !state.success) {

@@ -41,7 +41,7 @@ export default function Dashboard() {
             case "wishlist":
                 return <Wishlist />;
             case "logout":
-                return <Logout />;
+                return <Logout role="USER" />;
             default:
                 return <ManageAccount />;
         }

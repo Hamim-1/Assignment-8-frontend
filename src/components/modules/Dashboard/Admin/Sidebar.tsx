@@ -14,7 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, handleTabChange, isOpen, s
     const menuItems = [
         { id: 'products', label: 'Products', icon: <Package /> },
         { id: 'orders', label: 'Orders', icon: <ShoppingCart /> },
-        { id: 'users', label: 'Users', icon: <Users /> },
+        { id: 'users', label: 'Users', icon: <Users role='ADMIN' /> },
         { id: 'logout', label: 'Logout', icon: <LogOut /> },
     ];
 
