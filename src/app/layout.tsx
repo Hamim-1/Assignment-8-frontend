@@ -9,8 +9,8 @@ import { CartProvider } from '@/context/CartContext';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 export const metadata: Metadata = {
-  title: 'Your App Name',
-  description: 'Your app description',
+  title: 'Rafcart Ecommerce',
+  description: 'Next js Ecommerce',
 };
 const geistSans = Geist({
   variable: "--font-geist-sans",
