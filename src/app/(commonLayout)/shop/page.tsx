@@ -52,7 +52,6 @@ const page = () => {
         fetchProduct();
     }, [page, sort, search, category]);
 
-
     const handlePageChange = (forward: string) => {
 
         if (forward === "forward" && meta?.totalPage as number > page) {
