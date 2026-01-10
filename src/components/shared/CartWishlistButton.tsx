@@ -17,7 +17,7 @@ const CartWishlistButton = () => {
             if (button === "cart") {
                 router.push("/cart")
             } else {
-                router.push("dashboard/user?tab=wishlist")
+                router.push("/dashboard/user?tab=wishlist")
             }
         }
     }
