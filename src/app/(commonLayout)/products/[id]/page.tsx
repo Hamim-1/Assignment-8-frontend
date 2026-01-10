@@ -5,6 +5,8 @@ import { getSingleProduct } from '@/lib/products';
 import { IProduct } from '@/types/admin';
 import { useParams } from 'next/navigation';
 import LoadingOverlay from '@/components/shared/Loading';
+import AddToWishlistWrapper from '@/components/modules/Product/AddToWishlistWrapper';
+import AddToCartWrapper from '@/components/modules/Product/AddToCartWrapper';
 
 
 const ProductDetailsPage = () => {
@@ -107,15 +109,19 @@ const ProductDetailsPage = () => {
 
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                        <button className="flex-1 bg-primary text-white hover:bg-[#e41c36] px-8 py-4 rounded-md font-semibold transition duration-300 text-lg cursor-pointer">
-                            Add to Cart
-                        </button>
-                        <button
-                            className={`px-6 py-4 rounded-md font-semibold transition duration-300 border-2 flex items-center justify-center space-x-2 border-primary text-primary hover:bg-primary hover:text-white  cursor-pointer`}
-                        >
-                            <Heart size={20} />
-                            <span className="hidden sm:inline">Wishlist</span>
-                        </button>
+                        <AddToCartWrapper productId={product._id}>
+                            <button className="flex-1 bg-primary text-white hover:bg-[#e41c36] px-8 py-4 rounded-md font-semibold transition duration-300 text-lg cursor-pointer">
+                                Add to Cart
+                            </button>
+                        </AddToCartWrapper>
+                        <AddToWishlistWrapper productId={product._id}>
+                            <button
+                                className={`px-6 py-4 rounded-md font-semibold transition duration-300 border-2 flex items-center justify-center space-x-2 border-primary text-primary hover:bg-primary hover:text-white  cursor-pointer`}
+                            >
+                                <Heart size={20} />
+                                <span className="hidden sm:inline">Wishlist</span>
+                            </button>
+                        </AddToWishlistWrapper>
                         <button className="px-6 py-4 rounded-md font-semibold transition duration-300 border-2 border-gray-300 text-gray-700 hover:border-red-600 hover:text-red-600 flex items-center justify-center cursor-pointer">
                             <Share2 size={20} />
                         </button>
