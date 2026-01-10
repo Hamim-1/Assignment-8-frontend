@@ -13,14 +13,14 @@ const RemoveFromCartWrapper: React.FC<RemoveFromWishlistProps> = ({
     children,
     productId,
 }) => {
-    const { decWishlist } = useCart();
+    const { decCart } = useCart();
     const handleRemoveFromCart = async () => {
 
         try {
             const token = await getCookie("accessToken");
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/carts/${productId}`, {
-                method: "DETELE",
+                method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -30,11 +30,9 @@ const RemoveFromCartWrapper: React.FC<RemoveFromWishlistProps> = ({
             if (!res.ok) {
                 throw new Error("Failed to remove from cart");
             }
-            decWishlist();
+            decCart();
             toast.success("Removed From cart");
         } catch (error: any) {
-            console.log(error);
-
             const message = error?.message || "Failed to remove from cart"
 
             toast.error(message);

@@ -47,7 +47,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                     <Star size={20} />
                     <Star size={20} />
                     <Star size={20} />
-                    <p className="pl-3 text-black">({product.discount})</p>
+                    {/* <p className="pl-3 text-black">({product.discount})</p> */}
                 </div>
                 <div>
                     <AddToCartWrapper productId={product._id}>

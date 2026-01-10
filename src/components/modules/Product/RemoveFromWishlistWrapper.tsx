@@ -21,7 +21,7 @@ const RemoveFromWishlistWrapper: React.FC<RemoveFromWishlistProps> = ({
             const token = await getCookie("accessToken");
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/wishlist/${productId}`, {
-                method: "DETELE",
+                method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,

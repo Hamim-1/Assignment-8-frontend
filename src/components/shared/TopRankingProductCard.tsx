@@ -1,6 +1,7 @@
 import { IProduct } from "@/types/admin";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import { ProductDetailsAction } from "./ProductDetailsActions";
 
 const TopRankingCard = ({ product }: { product: IProduct }) => {
     const discount = product.discount > 0;
@@ -18,7 +19,9 @@ const TopRankingCard = ({ product }: { product: IProduct }) => {
                 </div>
             </div>
             <div className=" flex flex-col">
-                <p className="text-base font-medium hover:text-primary cursor-pointer"> {product.title}</p>
+                <ProductDetailsAction id={product._id}>
+                    <p className="text-base font-medium hover:text-primary cursor-pointer"> {product.title}</p>
+                </ProductDetailsAction>
                 <div className="flex space-x-5 items-center">
                     <p className="text-primary text-base font-medium ">${discount ? discountPrice.toFixed(2) : product.price}</p>
                     {
@@ -31,7 +34,7 @@ const TopRankingCard = ({ product }: { product: IProduct }) => {
                     <Star size={16} />
                     <Star size={16} />
                     <Star size={16} />
-                    <p className="text-black">({product.discount})</p>
+                    {/* <p className="text-black">({product.discount})</p> */}
                 </div>
             </div>
         </div>

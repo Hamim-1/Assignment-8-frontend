@@ -85,7 +85,7 @@ const ProductDetailsPage = () => {
                                 <Star key={i} size={20} fill="currentColor" />
                             ))}
                         </div>
-                        <span className="text-gray-600">({product.discount} reviews)</span>
+                        {/* <span className="text-gray-600">({product.discount} reviews)</span> */}
                     </div>
 
 
