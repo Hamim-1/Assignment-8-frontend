@@ -12,7 +12,7 @@ export default function HomePage() {
     <>
       <Hero />
       <Feature />
-      <TopRanking />
+      {/* <TopRanking /> */}
       <NewArraivalProduct />
       <Offer />
       <RecommendProduct />
