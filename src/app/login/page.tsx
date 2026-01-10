@@ -1,6 +1,7 @@
 import LoginForm from '@/components/modules/Login/LoginForm';
 import Breadcrumb from '@/components/shared/Breadcrumb';
-import { Link } from 'lucide-react';
+import Link from 'next/link';
+
 
 
 const LoginPage = () => {
