@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 import Feature from "@/components/modules/Home/Feature";
 import Hero from "@/components/modules/Home/Hero";
 import MobileApp from "@/components/modules/Home/MobileApp";
