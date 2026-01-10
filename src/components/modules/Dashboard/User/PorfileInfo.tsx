@@ -1,6 +1,11 @@
-import React from 'react';
+"use client"
+
+import toast from "react-hot-toast";
 
 const PorfileInfo = () => {
+    const handleClick = () => {
+        toast.error("This feature is coming soon.");
+    }
     return (
         <section className="w-full p-8 shadow-md h-fit ">
             <p className="text-lg font-semibold pb-5">Profile Information</p>
@@ -49,7 +54,7 @@ const PorfileInfo = () => {
                 </div>
 
                 <button
-                    className="w-fit uppercase bg-primary hover:bg-transparent text-white hover:text-primary duration-300 px-5 py-2 border border-primary rounded font-semibold">save
+                    className="w-fit uppercase bg-primary hover:bg-transparent text-white hover:text-primary duration-300 px-5 py-2 border border-primary rounded font-semibold" onClick={handleClick}>save
                     changes</button>
 
             </div>

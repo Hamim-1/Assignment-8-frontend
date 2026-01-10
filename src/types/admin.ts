@@ -12,13 +12,16 @@ export interface IProduct {
     discount: number;
 }
 
-export interface Order {
-    id: number;
-    customer: string;
-    product: string;
+export interface IOrder {
+    _id: string;
+    user: string;
+    product: [string];
     total: number;
-    status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
-    date: string;
+    status: "PENDING" |
+    "COMPLETE" |
+    "CANCEL" |
+    "FAILED";
+    createdAt: string;
 }
 
 export interface User {

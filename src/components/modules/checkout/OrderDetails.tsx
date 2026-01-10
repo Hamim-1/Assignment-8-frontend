@@ -55,7 +55,7 @@ const OrderDetails = () => {
         try {
             setLoading(true);
             const token = await getCookie("accessToken");
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/order`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

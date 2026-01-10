@@ -1,20 +1,12 @@
-import { ChevronRight, Home } from 'lucide-react';
-import Link from 'next/link';
+import Breadcrumb from "@/components/shared/Breadcrumb";
+import page from './../payment/cancel/page';
+
 
 const termsAndConditionsPage = () => {
     return (
         <div className="custom-container my-10">
 
-            <div className="flex text-primary items-center space-x-2 mb-5">
-                <Link
-                    href="/"
-                    className="text-primary hover:text-primary/80 transition-colors"
-                >
-                    <Home className="h-4 w-4" />
-                </Link>
-                <ChevronRight className="h-3 w-3 text-muted-foreground" />
-                <p className="cursor-pointer text-black">Terms & Conditions</p>
-            </div>
+            <Breadcrumb page="Terms & Conditions" />
 
             <div className="text-[17px] flex flex-col space-y-2 lg:px-12">
                 <p className="text-xl sm:text-3xl mx-auto font-semibold py-3">Terms & Conditions</p>

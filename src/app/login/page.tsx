@@ -1,6 +1,7 @@
 import LoginForm from '@/components/modules/Login/LoginForm';
-import { ChevronRight, Home } from 'lucide-react';
-import Link from 'next/link';
+import Breadcrumb from '@/components/shared/Breadcrumb';
+import { Link } from 'lucide-react';
+
 
 const LoginPage = () => {
     return (
@@ -9,13 +10,7 @@ const LoginPage = () => {
 
                 <div className="w-full max-w-md bg-white/90 backdrop-blur-md shadow-xl shadow-black/20 rounded-2xl p-10 space-y-6 border border-gray-100">
 
-                    <div className="flex text-primary items-center space-x-2 mb-5 text-lg">
-                        <Link href="/">
-                            <Home className="cursor-pointer text-primary" />
-                        </Link>
-                        <ChevronRight size={20} />
-                        <p>Login</p>
-                    </div>
+                    <Breadcrumb page='Login' />
 
                     <h2 className="text-3xl font-bold text-center text-primary tracking-wide">
                         Welcome Back

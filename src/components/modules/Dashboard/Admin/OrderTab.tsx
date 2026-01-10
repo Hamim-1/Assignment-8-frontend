@@ -1,96 +1,112 @@
-// components/admin/OrdersTab.tsx
-
 'use client';
 
-import React, { useState } from 'react';
-import { Order, OrderStatus } from '@/types/admin';
+import React, { useEffect, useState } from 'react';
+import { IOrder, OrderStatus } from '@/types/admin';
+import { getCookie } from '@/services/auth/tokenHandlers';
+import toast from 'react-hot-toast';
+
+const orderStatuses: OrderStatus[] = [
+    'Pending',
+    'Processing',
+    'Shipped',
+    'Delivered',
+    'Cancelled',
+];
 
 const OrdersTab: React.FC = () => {
-    const orders = [
-        {
-            id: 101,
-            customer: 'John Doe',
-            product: 'Wireless Headphones',
-            total: 89.99,
-            status: 'Pending',
-            date: '2024-12-10'
-        },
-        {
-            id: 102,
-            customer: 'Jane Smith',
-            product: 'Smart Watch',
-            total: 199.99,
-            status: 'Processing',
-            date: '2024-12-11'
-        },
-        {
-            id: 103,
-            customer: 'Bob Johnson',
-            product: 'Leather Backpack',
-            total: 79.99,
-            status: 'Shipped',
-            date: '2024-12-12'
-        },
-        {
-            id: 104,
-            customer: 'Alice Brown',
-            product: 'Running Shoes',
-            total: 129.99,
-            status: 'Delivered',
-            date: '2024-12-09'
-        },
-    ];
-    const orderStatuses = [
-        'Pending',
-        'Processing',
-        'Shipped',
-        'Delivered',
-        'Cancelled'
-    ];
+    const [orders, setOrders] = useState<IOrder[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
+    useEffect(() => {
+        const fetchOrders = async () => {
+            const token = await getCookie('accessToken');
 
+            if (!token) {
+                toast.error('No Token Received');
+                setLoading(false);
+                return;
+            }
 
-    const getStatusColor = (status: OrderStatus): string => {
-        const colors: Record<OrderStatus, string> = {
-            Pending: 'bg-yellow-100 text-yellow-800',
-            Processing: 'bg-blue-100 text-blue-800',
-            Shipped: 'bg-purple-100 text-purple-800',
-            Delivered: 'bg-green-100 text-green-800',
-            Cancelled: 'bg-red-100 text-red-800',
+            try {
+                const res = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/orders`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+
+                const result = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(result.message || 'Failed to fetch orders');
+                }
+
+                setOrders(result.data);
+            } catch (err: any) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         };
-        return colors[status] || 'bg-gray-100 text-gray-800';
+
+        fetchOrders();
+    }, []);
+
+
+
+    if (loading) return <p>Loading orders...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
+    const truncateText = (text: string, maxLength = 15) => {
+        if (!text) return '';
+        return text.length > maxLength
+            ? text.slice(0, maxLength) + '...'
+            : text;
     };
+
 
     return (
         <div>
             <h2 className="text-2xl font-bold mb-6">Orders</h2>
+
             <div className="bg-white rounded-lg shadow overflow-auto">
-                <table className="w-full overflow-x-auto">
+                <table className="w-full">
                     <thead className="bg-gray-50">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
+
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                         </tr>
                     </thead>
+
                     <tbody className="divide-y divide-gray-200">
                         {orders.map(order => (
-                            <tr key={order.id} className="hover:bg-gray-50">
-                                <td className="px-6 py-4 whitespace-nowrap font-medium">#{order.id}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{order.customer}</td>
-                                <td className="px-6 py-4">{order.product}</td>
-                                <td className="px-6 py-4 whitespace-nowrap font-semibold">${order.total}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.date}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                            <tr key={order._id} className="hover:bg-gray-50">
+                                <td className="px-6 py-4 font-medium">#{order._id}</td>
+                                <td
+                                    className="px-6 py-4 max-w-[180px] truncate cursor-pointer"
+                                    title={order.user}
+                                >
+                                    {truncateText(order.user, 8)}
+                                </td>
+
+
+                                <td className="px-6 py-4 text-sm text-gray-500">{order.createdAt.split('T')[0]}</td>
+                                <td className="px-6 py-4">
                                     <select
                                         value={order.status}
-                                        className={`px-3 py-1 rounded-full text-xs font-semibold border-0 cursor-pointer`}
+                                        className="px-3 py-1 rounded-full text-xs font-semibold border-0 cursor-pointer "
                                     >
                                         {orderStatuses.map(status => (
-                                            <option key={status} value={status}>{status}</option>
+                                            <option key={status} value={status}>
+                                                {status}
+                                            </option>
                                         ))}
                                     </select>
                                 </td>

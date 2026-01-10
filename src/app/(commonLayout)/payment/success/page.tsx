@@ -1,17 +1,13 @@
-import { ChevronRight, House } from 'lucide-react';
+import Breadcrumb from '@/components/shared/Breadcrumb';
+import { requireAuth } from '@/lib/auth';
 import Link from 'next/link';
 
-const page = () => {
+const page = async () => {
+    await requireAuth()
     return (
         <div className="w-full lg:px-7 px-3 xs:px-10 sm:px-16 xl:px-20 mt-5 h-[60vh] flex flex-col justify-center items-center">
 
-            <div className="flex text-primary items-center space-x-2 mb-5">
-                <Link href="/">
-                    <House />
-                </Link>
-                <ChevronRight />
-                <p className="cursor-pointer text-black">Order complete</p>
-            </div>
+            <Breadcrumb page='Payment Successful' />
 
             <div className="mx-auto text-center flex flex-col space-y-5 items-center">
                 <p className="text-xl sm:text-2xl font-semibold">YOUR ORDER IS COMPLETED!</p>

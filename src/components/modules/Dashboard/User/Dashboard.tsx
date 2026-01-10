@@ -11,6 +11,7 @@ import PorfileInfo from "@/components/modules/Dashboard/User/PorfileInfo";
 import Wishlist from "@/components/modules/Dashboard/User/Wishlist";
 import { useAuth } from "@/context/AuthContext";
 import { ChevronRight, Home, Menu, ShieldUser } from "lucide-react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -55,7 +56,9 @@ export default function Dashboard() {
         <div className="custom-container mt-10 overflow-hidden min-h-[70vh] lg:min-h-auto">
             {/* breadcumb */}
             <div className="flex text-primary items-center space-x-2 mb-5 font-medium">
-                <Home className="cursor-pointer text-sm" />
+                <Link href="/">
+                    <Home className="cursor-pointer text-sm" />
+                </Link>
                 <ChevronRight className="cursor-pointer text-xs mt-1" />
                 <p className="cursor-pointer text-black" id="my-account-page-routing-page-name">My Account</p>
                 <div className={`space-x-2 items-center ${tab ? "flex" : "hidden"}`} id="account-page-routing-page-name">

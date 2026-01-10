@@ -3,11 +3,12 @@ import OrdersTab from '@/components/modules/Dashboard/Admin/OrderTab';
 import ProductsTab from '@/components/modules/Dashboard/Admin/ProductsTab';
 import Sidebar from '@/components/modules/Dashboard/Admin/Sidebar';
 import UsersTab from '@/components/modules/Dashboard/Admin/UsersTab';
-import { ChevronRight, Home, PanelRightClose } from 'lucide-react';
+import { PanelRightClose } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useEffect, useState } from 'react';
 import Logout from '../User/Logout';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 
 export default function Dashboard() {
@@ -35,11 +36,7 @@ export default function Dashboard() {
             <Sidebar activeTab={activeTab} handleTabChange={handleTabChange} isOpen={isOpen} setIsOpen={setIsOpen} />
 
             <div className="flex-1 p-8 custom-container overflow-auto">
-                <div className='flex items-center pb-5 text-primary'>
-                    <Home className="cursor-pointer text-sm" />
-                    <ChevronRight className="cursor-pointer text-xs mt-1" />
-                    <p className="cursor-pointer " >Admin Dashboard</p>
-                </div>
+                <Breadcrumb page='Admin Dashboard' />
                 {activeTab === 'products' && <ProductsTab />}
                 {activeTab === 'orders' && <OrdersTab />}
                 {activeTab === 'users' && <UsersTab />}

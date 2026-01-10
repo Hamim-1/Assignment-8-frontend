@@ -1,6 +1,11 @@
-import React from 'react';
+"use client"
+
+import toast from "react-hot-toast";
 
 const ChangePassword = () => {
+    const handleClick = () => {
+        toast.error("This feature is coming soon.");
+    }
     return (
         <section className="p-5 shadow-md h-fit">
             <p className="text-lg font-semibold pb-5">Change Password</p>
@@ -28,7 +33,7 @@ const ChangePassword = () => {
 
             <div className="pt-8">
                 <button
-                    className="w-fit uppercase bg-primary hover:bg-transparent text-white hover:text-primary duration-300 px-5 py-2 border border-primary rounded font-semibold">save
+                    className="w-fit uppercase bg-primary hover:bg-transparent text-white hover:text-primary duration-300 px-5 py-2 border border-primary rounded font-semibold" onClick={handleClick}>save
                     changes</button>
             </div>
         </section>

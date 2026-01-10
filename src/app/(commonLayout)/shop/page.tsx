@@ -7,6 +7,7 @@ import { getProducts } from "@/lib/products";
 import { IProduct } from "@/types/admin";
 import LoadingOverlay from "@/components/shared/Loading";
 import { useSearchParams } from "next/navigation";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 export interface IMeta {
     page: number;
     limit: number;
@@ -72,11 +73,7 @@ const page = () => {
     return (
         <div className="custom-container mt-10 my-16">
 
-            <div className="flex text-primary items-center space-x-2 mb-5">
-                <Home className="cursor-pointer text-sm" />
-                <ChevronRight className="cursor-pointer text-xs mt-1" />
-                <p className="cursor-pointer text-black" id="my-account-page-routing-page-name">Shop</p>
-            </div>
+            <Breadcrumb page="Shop" />
 
             <div className="w-full">
 
