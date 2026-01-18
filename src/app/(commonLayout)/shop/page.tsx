@@ -8,6 +8,7 @@ import { IProduct } from "@/types/admin";
 import LoadingOverlay from "@/components/shared/Loading";
 import { useSearchParams } from "next/navigation";
 import Breadcrumb from "@/components/shared/Breadcrumb";
+import ProductCardSkeleton from "@/components/modules/Product/ProductCardSkeleton";
 export interface IMeta {
     page: number;
     limit: number;
@@ -129,22 +130,25 @@ const page = () => {
 
                 </div>
 
-                {
-                    products ?
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 pt-5">
-                            {
-                                products.map((product: IProduct, i: number) => (
 
-                                    <ProductCard product={product} key={i} />
-                                ))
-                            }
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 pt-5">
 
-                        </div>
-                        :
-                        <div className="h-[50vh] flex justify-center items-center">
-                            <LoadingOverlay />
-                        </div>
-                }
+                    {
+                        products ?
+
+                            products.map((product: IProduct, i: number) => (
+
+                                <ProductCard product={product} key={i} />
+                            ))
+                            :
+                            Array.from({ length: 9 }).map((_, i) => (
+
+                                <ProductCardSkeleton key={i} />
+                            ))
+                    }
+
+                </div>
+
 
                 {/* pagination */}
                 {

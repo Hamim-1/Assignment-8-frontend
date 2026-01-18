@@ -6,6 +6,8 @@ import { useCart } from '@/context/CartContext';
 import { useEffect, useState } from 'react';
 import { IProduct } from '@/types/admin';
 import ProcessToCheckout from './ProcessToChecout';
+import CartProductCardSkeleton from '../Product/CartProductSkeleton';
+import OrderSummarySkeleton from './OrderSummarySkeleton';
 
 export type ICartProduct = Omit<IProduct, "description" | "categroy">;
 export interface ICartItem {
@@ -48,13 +50,16 @@ const Cart = () => {
 
     if (loading) {
         return (
-            <div className="flex flex-col space-y-5">
-                {[1, 2, 3].map((i) => (
-                    <div
-                        key={i}
-                        className="h-24 bg-gray-200 rounded animate-pulse w-full"
-                    />
-                ))}
+            <div className="w-full flex flex-col lg:flex-row lg:gap-x-5 gap-y-5 lg:gap-y-0">
+
+                <div className="w-[97%] xs:w-80 md:w-full lg:w-[72%] mx-auto flex flex-col space-y-5">
+                    {[1, 2, 3].map((i) => (
+                        <CartProductCardSkeleton key={i} />
+                    ))}
+                </div>
+
+
+                <OrderSummarySkeleton />
             </div>
         );
     }
