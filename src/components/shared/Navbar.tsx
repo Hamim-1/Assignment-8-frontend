@@ -26,7 +26,7 @@ const Navbar = () => {
             <div className="custom-container h-20 flex justify-between  items-center text-base bg-primary lg:bg-white w-full">
 
                 <Link href="/">
-                    <p className="text-3xl font-semibold text-white lg:text-black">RAF<span className="text-secondary lg:text-primary">CART</span></p>
+                    <p className="text-3xl font-semibold text-white lg:text-secondary">RAF<span className="text-secondary lg:text-primary">CART</span></p>
                 </Link>
 
                 <div className="hidden lg:flex space-x-6">

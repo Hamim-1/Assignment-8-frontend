@@ -27,7 +27,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="bg-slate-200">
+        <footer className="bg-slate-200 pb-10 lg:pb-0">
             <div
                 className="custom-container grid grid-cols-1  lg:grid-cols-3 py-14 mt-16 gap-12 lg:gap-7 xl:gap-12">
                 <div className="flex flex-col space-y-3 pr-5">

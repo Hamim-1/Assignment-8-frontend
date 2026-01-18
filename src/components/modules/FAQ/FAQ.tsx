@@ -89,7 +89,7 @@ const FAQ = () => {
     };
 
     return (
-        <div className="custom-container">
+        <div className="custom-container pb-20">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-2 text-sm py-8">
                 <Link

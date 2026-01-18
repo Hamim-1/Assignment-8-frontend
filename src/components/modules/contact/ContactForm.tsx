@@ -33,7 +33,7 @@ const ContactForm = () => {
     ]
     return (
         <div
-            className="custom-container mt-10 flex flex-col space-y-10 lg:space-y-0 lg:flex-row gap-x-8">
+            className="custom-container mt-10 flex flex-col space-y-10 lg:space-y-0 lg:flex-row gap-x-8 pb-20">
 
             <div className="w-full lg:w-3/5 xl:w-2/3 shadow-lg flex flex-col space-y-3 p-5 mx-auto rounded-lg">
                 <p className="text-2xl font-semibold">LEAVE US A MESSAGE</p>
