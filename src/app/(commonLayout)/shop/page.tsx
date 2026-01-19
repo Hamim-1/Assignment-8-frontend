@@ -25,6 +25,8 @@ const page = () => {
     const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
     const category = searchParams.get("category") || null;
     const search = searchParams.get("search") || "";
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(99999);
     const [meta, setMeta] = useState<IMeta | null>(null);
     const sortOptions = [
         { label: "Default Sorting", value: "" },
@@ -38,9 +40,9 @@ const page = () => {
             setProducts(null);
             let result;
             if (category) {
-                result = await getProducts({ page, search, sort, category });
+                result = await getProducts({ page, search, sort, minPrice, maxPrice, category });
             } else {
-                result = await getProducts({ page, search, sort });
+                result = await getProducts({ page, search, sort, minPrice, maxPrice, });
             }
 
             if (!result?.error && result?.data) {
@@ -51,7 +53,7 @@ const page = () => {
             }
         }
         fetchProduct();
-    }, [page, sort, search, category]);
+    }, [page, sort, search, category, minPrice, maxPrice]);
 
     const handlePageChange = (forward: string) => {
 
@@ -60,9 +62,12 @@ const page = () => {
         } else if (1 < page) {
             setPage(page - 1)
         }
-        console.log(page);
 
     }
+    useEffect(() => {
+        setMinPrice(0);
+        setMaxPrice(99999);
+    }, [search])
 
     if (error) {
         return <div className='custom-container py-10'>
@@ -123,7 +128,13 @@ const page = () => {
                             <X className="cursor-pointer absolute top-0 right-0 p-5" />
 
 
-                            <Filter />
+                            <Filter
+                                minPrice={minPrice}
+                                maxPrice={maxPrice}
+                                setMinPrice={setMinPrice}
+                                setMaxPrice={setMaxPrice}
+                                setIsFilterOpen={setIsFilterOpen}
+                            />
 
                         </div>
                     }
@@ -141,7 +152,7 @@ const page = () => {
                                 <ProductCard product={product} key={i} />
                             ))
                             :
-                            Array.from({ length: 9 }).map((_, i) => (
+                            Array.from({ length: 8 }).map((_, i) => (
 
                                 <ProductCardSkeleton key={i} />
                             ))
@@ -174,9 +185,12 @@ const page = () => {
                         ))}
 
 
-                        <div className="w-8 h-8 border border-gray-400 flex items-center justify-center cursor-pointer" onClick={() => handlePageChange("forward")}>
-                            <MoveRight size={18} />
-                        </div>
+                        {
+                            meta.totalPage > 1 &&
+                            <div className="w-8 h-8 border border-gray-400 flex items-center justify-center cursor-pointer" onClick={() => handlePageChange("forward")}>
+                                <MoveRight size={18} />
+                            </div>
+                        }
 
                     </div>
                 }

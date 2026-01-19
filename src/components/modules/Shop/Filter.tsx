@@ -1,68 +1,74 @@
-const Filter = () => {
+import { X } from "lucide-react";
+import { SearchByCategory } from "./SearchByCategory";
+import { useState } from "react";
+
+type FilterProps = {
+    minPrice: number;
+    maxPrice: number;
+    setMinPrice: (v: number) => void;
+    setMaxPrice: (v: number) => void;
+    setIsFilterOpen: (v: boolean) => void;
+};
+
+const Filter = ({
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+    setIsFilterOpen
+}: FilterProps) => {
+
+    const categories = ["shoe", "headphone", "watch", "laptop", "phone"];
+    const [draftMin, setDraftMin] = useState(minPrice);
+    const [draftMax, setDraftMax] = useState(maxPrice);
     return (
-        <div className='flex flex-col space-y-5'>
+        <div className="flex flex-col space-y-5 relative">
+
+            {/* CATEGORY */}
             <div className="flex flex-col space-y-3 border-b border-gray-300 pb-5">
-                <p className="text-lg uppercase font-semibold">Categorise</p>
+                <p className="text-lg uppercase font-semibold">Categories</p>
 
-
-                <div className="flex space-x-3 items-center">
-                    <input type="checkbox" className="text-primary focus:ouline-0 rounded-sm" id="cate-${i}-1" />
-                    <label htmlFor="cate-${i}-1">Women</label>
-                </div>
-
-
-                <div className="flex space-x-3 items-center">
-                    <input type="checkbox" className="text-primary focus:ouline-0 rounded-sm" id="cate-${i}-2" />
-                    <label htmlFor="cate-${i}-2">Men</label>
-                </div>
-
-
-
-                <div className="flex space-x-3 items-center">
-                    <input type="checkbox" className="text-primary focus:ouline-0 rounded-sm" id="cate-${i}-3" />
-                    <label htmlFor="cate-${i}-3">Shoes</label>
-
-                </div>
-
-
-                <div className="flex space-x-3 items-center">
-                    <input type="checkbox" className="text-primary focus:ouline-0 rounded-sm" id="cate-${i}-4" />
-                    <label htmlFor="cate-${i}-4">Computer</label>
-
-                </div>
-
+                {categories.map((category, i) => (
+                    <SearchByCategory key={i} category={category}>
+                        <p className="capitalize cursor-pointer text-[17px]">
+                            {category}
+                        </p>
+                    </SearchByCategory>
+                ))}
             </div>
 
-            <div className="border-b border-gray-300 pb-5 flex flex-col space-y-3">
-                <p className="text-lg uppercase font-semibold">Size</p>
-                <div className="flex space-x-3">
-                    <input type="text" readOnly placeholder="XS"
-                        className="h-7 w-7 p-1 border border-gray-400 focus:bg-primary focus:placeholder:text-white text-center focus:ouline-0 focus:border-none text-sm font-medium rounded cursor-pointer" />
-                    <input type="text" readOnly placeholder="S"
-                        className="h-7 w-7 p-1 border border-gray-400 focus:bg-primary focus:placeholder:text-white text-center focus:ouline-0 focus:border-none text-sm font-medium rounded cursor-pointer" />
-                    <input type="text" readOnly placeholder="M"
-                        className="h-7 w-7 p-1 border border-gray-400 focus:bg-primary focus:placeholder:text-white text-center focus:ouline-0 focus:border-none text-sm font-medium rounded cursor-pointer" />
-                    <input type="text" readOnly placeholder="L"
-                        className="h-7 w-7 p-1 border border-gray-400 focus:bg-primary focus:placeholder:text-white text-center focus:ouline-0 focus:border-none text-sm font-medium rounded cursor-pointer" />
-                    <input type="text" readOnly placeholder="XL"
-                        className="h-7 w-7 p-1 border border-gray-400 focus:bg-primary focus:placeholder:text-white text-center focus:ouline-0 focus:border-none text-sm font-medium rounded cursor-pointer" />
+            {/* PRICE FILTER */}
+            <div className="flex flex-col space-y-3 border-b border-gray-300 pb-5">
+                <p className="text-lg uppercase font-semibold">Price</p>
+
+                <div className="flex items-center space-x-3">
+                    <input
+                        type="number"
+                        value={draftMin}
+                        onChange={(e) => setDraftMin(Number(e.target.value))}
+                        onBlur={() => setMinPrice(draftMin)}
+                        placeholder="Min"
+                        className="w-full border border-gray-300 px-2 py-1 rounded focus:outline-0"
+                    />
+
+                    <span>-</span>
+
+                    <input
+                        type="number"
+                        value={draftMax}
+                        onChange={(e) => setDraftMax(Number(e.target.value))}
+                        onBlur={() => setMaxPrice(draftMax)}
+                        placeholder="Max"
+                        className="w-full border border-gray-300 px-2 py-1 rounded focus:outline-0"
+                    />
                 </div>
             </div>
 
-            <div className="pb-5 flex flex-col space-y-3">
-                <p className="text-lg uppercase font-semibold">Color</p>
-                <div className="flex space-x-3">
-                    <input type="text"
-                        className="h-7 w-7 bg-primary focus:ring-2 border-none focus:ring-primary focus:border-none rounded focus:ring-offset-2 cursor-pointer"
-                        readOnly />
-                    <input type="text"
-                        className="h-7 w-7 bg-blue-600 focus:ring-2 border-none focus:ring-blue-600 focus:border-none rounded focus:ring-offset-2 cursor-pointer"
-                        readOnly />
-                    <input type="text"
-                        className="h-7 w-7 bg-black focus:ring-2 border-none focus:ring-black focus:border-none rounded focus:ring-offset-2 cursor-pointer"
-                        readOnly />
-                </div>
-            </div>
+            {/* CLOSE FILTER BUTTON */}
+            <button className="absolute top-1 right-0 cursor-pointer" onClick={() => setIsFilterOpen(false)}>
+                <X />
+            </button>
+
         </div>
     );
 };
