@@ -13,7 +13,7 @@ const LoginForm = () => {
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get('redirect') || `/dashboard/${state?.data?.user?.role}`;
 
-    // Local state to store form values
+
     const [formValues, setFormValues] = useState({ email: "", password: "" });
 
     const getFieldError = (fieldName: string) => {
@@ -37,7 +37,7 @@ const LoginForm = () => {
         }
     }, [state]);
 
-    // Function to fill demo credentials
+
     const fillDemoCredentials = (type: "user" | "admin") => {
         if (type === "user") {
             setFormValues({ email: "user@gmail.com", password: "Pass123!" });
